@@ -3,11 +3,6 @@ from selenium.webdriver.common.keys import Keys
 import unittest
 import time
 
-
-# browser = webdriver.Chrome()
-#     browser.get('http://127.0.0.1:8000/')
-#     time.sleep(1)
-#     assert 'Django' in browser.title
 class todo(unittest.TestCase):
     def setUp(self):
          self.browser = webdriver.Firefox()
@@ -35,13 +30,13 @@ class todo(unittest.TestCase):
         time.sleep(1)
 
         inputbox = self.browser.find_element_by_id('id_new_item')
-        inputbox.send_keys('Buy bred')
+        inputbox.send_keys('Buy bread')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
     #Once user enters the todo item and then press enter, page will refresh
     #Then user's todo should be listed as a table
-        #time.sleep(10)
+
 
         self.check_item_in_the_table('1: Go to walmart')
         self.check_item_in_the_table('2: Buy bread')

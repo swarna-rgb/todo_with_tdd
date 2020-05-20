@@ -30,6 +30,7 @@ class HomePageTest(TestCase):
         response = self.client.post('/todo/', data={'item_text': 'my new todo item2'})
         print(response.content.decode())
         self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'],'/todo/')
 
 #model class test for todo item
 class TodoItemTest(TestCase):
