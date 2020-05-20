@@ -12,6 +12,11 @@ class todo(unittest.TestCase):
     def setUp(self):
          self.browser = webdriver.Firefox()
 
+    def check_item_in_the_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text,[row.text for row in rows])
+
     #user story
     #As a user, title and header text as 'To-Do'
     def test_user_start_a_list_and_then_displays_it_later(self):
@@ -27,15 +32,19 @@ class todo(unittest.TestCase):
 
         inputbox.send_keys('Go to walmart')
         inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Buy bred')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
     #Once user enters the todo item and then press enter, page will refresh
     #Then user's todo should be listed as a table
-        time.sleep(1)
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Go to walmart' for row in rows),
-            "new todo item not found in the table"
-        )
+        #time.sleep(10)
+
+        self.check_item_in_the_table('1: Go to walmart')
+        self.check_item_in_the_table('2: Buy bread')
     def tearDown(self):
          self.browser.quit()
 

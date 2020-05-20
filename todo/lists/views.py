@@ -1,8 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import  HttpResponse
+from .models import TodoItem
 # Create your views here.
 
 
 def home_page(request):
-    #return  HttpResponse("<html><title>To-Do</title></html>")
-    return render(request, 'home.html')
+    # todo_item = TodoItem()
+    # todo_item.text = request.POST.get('item_text', '')
+    # todo_item.save()
+    if request.method == 'POST':
+       TodoItem.objects.create(text = request.POST.get('item_text','') )
+
+       return  redirect('home_page')
+
+    return render(request,'home.html',{'todo_items': TodoItem.objects.all()})
