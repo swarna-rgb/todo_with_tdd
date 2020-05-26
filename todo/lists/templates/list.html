@@ -8,5 +8,10 @@
 {% csrf_token %}
 <input id="id_new_item" name='item_text' placeholder="Enter a todo item here">
 </form>
+<table id="id_list_table">
+    {% for todo_item in todo_items %}
+    <tr><td> {{forloop.counter}}: {{todo_item.text}} </td></tr>
+    {% endfor %}
+</table>
 </body>
 </html>
