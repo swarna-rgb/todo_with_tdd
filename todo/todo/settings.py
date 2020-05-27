@@ -99,7 +99,20 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+'''AWS_ACCESS_ID = 'AKIAXNXEQMTIEROL2OM3'
+AWS_KEY = 'kCDZFUpnjvx7dGBcBjhCxlrxEfnKXSeB6ZypJgMS'
+AWS_S3_BUCKET_NAME = 'staticimagesbucket'
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration>
+ <CORSRule>
+   <AllowedOrigin>*</AllowedOrigin>
+   <AllowedMethod>GET</AllowedMethod>
+   <AllowedMethod>PUT</AllowedMethod>
+   <AllowedMethod>POST</AllowedMethod>
+   <AllowedMethod>DELETE</AllowedMethod>
+   <AllowedHeader>*</AllowedHeader>
+ </CORSRule>
+</CORSConfiguration>'''
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
