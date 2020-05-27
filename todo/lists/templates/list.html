@@ -1,17 +1,10 @@
-<html>
-<head>
-<title>To-Do</title>
-</head>
-<body>
-<h1>To-Do</h1>
-<form method="POST" action="additem/">
-{% csrf_token %}
-<input id="id_new_item" name='item_text' placeholder="Enter a todo item here">
-</form>
+{% extends 'base.html' %}
+{% block header_text %} Your to-do list {% endblock %}
+{% block action_url%}additem/{% endblock %}
+{% block table_content %}
 <table id="id_list_table">
     {% for todo_item in todo_items %}
     <tr><td> {{forloop.counter}}: {{todo_item.text}} </td></tr>
     {% endfor %}
 </table>
-</body>
-</html>
+{% endblock %}
