@@ -93,9 +93,21 @@ class ShowAllTodoItems(TestCase):
         # self.assertContains(response,'Test unique url for a user')
 
 
-
-
 class NewTodoItem(TestCase):
+    def test_can_save_a_request_to_an_existing_user(self):
+        auser = User.objects.create()
+        buser = User.objects.create()
+        self.client.post(f'/todo/{auser.id}/additem/',
+                         data={'item_text':'Adding item to the existing list'})
+        self.assertEqual(1, TodoItem.objects.count())
+        self.assertEqual('Adding item to the existing list', TodoItem.objects.first().text)
+        self.assertEqual(TodoItem.objects.first().user,auser)
+
+    def test_existing_user_redirect_after_post(self):
+        auser = User.objects.create()
+        response = self.client.post(f'/todo/{auser.id}/additem/',
+                         data={'item_text': 'Adding item to the existing list'})
+        self.assertRedirects(response, f'/todo/{auser.id}/' )
 
     def test_redirects_after_POST(self):
         response = self.client.post('/todo/newtodoitem/', data={'item_text': 'my new todo item2'})
