@@ -4,6 +4,7 @@
 </head>
 <body>
 <h1>{% block header_text %} {% endblock %} </h1>
+<div>{% block imgblock %}{% endblock %}</div>
 <form method="POST" action= "{% block action_url%} {% endblock %}">
 {% csrf_token %}
 <input id="id_new_item" name='item_text' placeholder="Enter a todo item here">
