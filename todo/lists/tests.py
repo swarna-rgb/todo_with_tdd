@@ -96,6 +96,17 @@ class ShowAllTodoItems(TestCase):
 
 
 class NewTodoItem(TestCase):
+    def test_add_item_to_the_existing_user(self):
+        auser = User.objects.create()
+        self.client.post(f'/todo/{auser.id}/additem/', data={'item_text':'adding item to the existing user'})
+        self.assertEqual(1,TodoItem.objects.count())
+        self.assertEqual(TodoItem.objects.first().text,'adding item to the existing user')
+        self.assertEqual(TodoItem.objects.first().user, auser)
+
+    def test_redirect_add_item_to_an_existing_user(self):
+        auser = User.objects.create()
+        response = self.client.post(f'/todo/{auser.id}/additem/', data={'item_text': 'adding item to the existing user'})
+        self.assertRedirects(response,f'/todo/{auser.id}/')
 
     def test_redirects_after_POST(self):
         response = self.client.post('/todo/newtodoitem/', data={'item_text': 'my new todo item2'})

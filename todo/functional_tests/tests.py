@@ -29,7 +29,7 @@ class todo(LiveServerTestCase):
         self.assertIn('To-Do', self.browser.title)
 
         header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('To-Do', header_text)
+        self.assertIn('Start a new list here', header_text)
 
     #User wants to enter todo item in the input box
         inputbox = self.browser.find_element_by_id('id_new_item')
@@ -46,13 +46,13 @@ class todo(LiveServerTestCase):
         self.wait_until_selenium_find_item_in_the_table('1: Go to walmart')
         self.wait_until_selenium_find_item_in_the_table('2: Buy bread')
 
-    @unittest.skip
+
     def test_02multipleuser_additems_retrieves_list_with_different_urls(self):
         #first user
         self.browser.get('http://127.0.0.1:8000/todo')
         self.assertIn('To-Do', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('To-Do', header_text)
+        self.assertIn('Start a new list here', header_text)
         # User wants to enter todo item in the input box
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a todo item here')
@@ -72,6 +72,13 @@ class todo(LiveServerTestCase):
         inputbox.send_keys('Buy shirt')
         inputbox.send_keys(Keys.ENTER)
         self.wait_until_selenium_find_item_in_the_table('1: Buy shirt')
+
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a todo item here')
+        inputbox.send_keys('Buy skirt')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_until_selenium_find_item_in_the_table('2: Buy skirt')
+
         second_user_url = self.browser.current_url
         self.assertRegex(second_user_url, '/todo/.+')
         self.assertNotEqual(first_user_url,second_user_url)

@@ -3,7 +3,10 @@ from django.http import  HttpResponse
 from .models import TodoItem,User
 
 #add todo item to the existing user
-
+def add_items_for_an_existing_user(request,user_id):
+    existing_user = User.objects.get(id=user_id)
+    TodoItem.objects.create(text=request.POST['item_text'], user=existing_user)
+    return redirect(f'/todo/{existing_user.id}/')
 #create new todo item
 def create_todo_item(request):
     new_user = User.objects.create()

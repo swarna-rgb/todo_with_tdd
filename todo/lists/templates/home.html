@@ -1,12 +1,6 @@
-<html>
-<head>
-<title>To-Do</title>
-</head>
-<body>
-<h1>To-Do</h1>
-<form method="POST" action="/todo/newtodoitem/">
-{% csrf_token %}
-<input id="id_new_item" name='item_text' placeholder="Enter a todo item here">
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block header_text %}Start a new list here{% endblock %}
+{% block imageblock %} <img src="{% static 'todo.jpeg' %}" alt = "pic of todo" height="150"/> {% endblock %}
+{%block action_path%}/todo/newtodoitem/{% endblock %}
+
